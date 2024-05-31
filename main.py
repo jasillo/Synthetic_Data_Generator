@@ -1,13 +1,27 @@
-from noun_tokenizer import NounTokenizer
+from noun_tokenizer import *
 from langchain_community.llms import Ollama
 
-# llm = Ollama(model="phi3:mini")
-# prompt = '''replace the word "companionship" with a similar semantich word in the sentence : "do not have companionship with anyone given to anger" short answer'''
-# result = llm.invoke(prompt)
-# print(result)
 
-sentence =  "do not have companionship with anyone given to anger"
+
+# with open('archivo.txt', 'r') as archivo:
+#     # Lee todas las líneas del archivo
+#     lineas = archivo.readlines()
+    
+#     # Itera sobre cada línea
+#     for linea in lineas:
+#         # Procesa cada línea como sea necesario
+#         print(linea.strip()) 
+
+
+sentence =  "the god above us"
 nouns = NounTokenizer(sentence)
 
-print(len(nouns))
+llm = Ollama(model="phi3:mini")
+prompt = str.format('''replace the word "{0}" with a similar semantich word in the sentence : "{1}"''',
+                    nouns.firts_noun(),
+                    sentence
+                    )
 
+result = llm.invoke(prompt)
+print(result)
+print(substr_doble_quote(result))
