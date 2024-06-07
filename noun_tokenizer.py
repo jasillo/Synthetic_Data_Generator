@@ -53,3 +53,4 @@ def substr_get_firts_line(sentence : str):
         return None
     else:
         return firts_line
+
